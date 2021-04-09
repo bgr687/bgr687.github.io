@@ -1,0 +1,12 @@
+title: ICT Security Basics from Trust to Blockchain
+email: bgr687@myy.haaga-helia.fi
+description: >- # this means to ignore newlines until "baseurl:"
+  This is a page created by bgr687 and used for delivering homeworks for the course ICT4HM103-3002
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
+github_username:  bgr687
+
+# Build settings
+theme: minima
+plugins:
+  - jekyll-feed

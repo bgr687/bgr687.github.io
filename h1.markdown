@@ -1,0 +1,91 @@
+---
+layout: page
+title: null
+permalink: /h1/
+---
+#### <a name="base"> Homework 1 (April 9, 2021): Overview, concepts and fundamentals
+
+#### Table of Contents
+
+- [Part A](#part1)
+- [Part B](#part2)
+- [Part C](#part3)
+- [Part D](#part4)
+- [Part E](#part5)
+
+*a) <a name="part1"></a>Pick a security incident and learn about it. Write briefly about it. Point out the concepts of threat actor, exploit, vulnerability, impact and risk. (You can find writeups about security incidents from Darknet Diaries and Krebs)*
+
+Saudi Aramco is the largest oil production company in the entire world. It supplies almost 1/10th of the oil in the world. The economy of Saudi Arabia is highly dependent on the production of oil. 
+
+The Aramco network of Saudi Arabia got attacked by a virus on 15th August 2012, which damaged almost thirty thousand hard drives of desktop and prevented them from carrying out operations. **Shamoon** had spread from the network of the company and it wiped out the hard drives of the computers ***(Impact)***. No evidence was found regarding the attempts made by the attackers for stealing significant information. Also, none of the other network devices have been disrupted, nor the production of gas and oil has been impacted. Only one of the anonymous groups of hackers ***(Threat actor – “Cutting Sword of Justice”?)*** has assumed the responsibility and has cited certain political explanations. It was one of the most disrupting cyber-attack that was carried out against the business. 
+
+Based on an episode in the podcast “Darknet diaries” with Chris Kubecka. The attackers likely got in through a phishing e-mail.  This is where they would send a specific employee an e-mail with an interesting attachment or link.  Since the employees had no security training, it was probably not that hard to get one of them to click a link or open an attachment.  The other part of this equation is that the employee’s computer had to not be fully patched.  For instance, the attackers would hope they are running an older version of Microsoft Word or Adobe Acrobat that has known vulnerabilities ***(Vulnerability)***.  When the user would open the Word document, the file would attempt to exploit one of these known vulnerabilities to gain access to the computer.  If successful, it would open up a reverse terminal back to the attacker ***(Exploit)***.  When the attackers got into Saudi Aramco, they were able to move around with ease.  This is the problem with a flat network ***(Risk)***.  Their next step is to gain access to a system that communicates to all the other computers in the network, a domain controller.  The system is used for authentication onto the network, and it provides a map so computers can find other computers.  The attackers focused on these domain controllers, but these systems were not very secure.
+
+The attackers gained control of a single computer on the internal network of Aramco, and then they used it as a point of a launching, controlling, and commanding center for an attack. Gaining greater control of almost one global computer, the attacker costumed a crafted virus that can spread from an individual control and command computer, by making use of administrative shares, to almost thirty thousand desktops of Aramco. The attacker triggered the virus to destroy greater drive content at a specified time on 15th August and the report on a number of the files that have been destroyed. The virus did not appear to have an attempt to steal the contents of files. However, its purpose seemed to be to destroy a lot of systems. Soon after the cyber-attack on the 15th of August, the organization proclaimed that it reduced its electronic systems from the external world to prevent upcoming cyber-attacks ***(Impact)***.
+
+The production and exploration of oil were not affected as they were operated isolatedly. An organization said that this virus has originated from outside sources and those who are responsible were to continue their attacks. It was not elaborated. The experts of information technology have warned that the cyber-attacks on the energy infrastructure of the country, whether they have been conducted by hostile governments, militant groups, or private hackers, could disrupt the supplies of energy.
+
+*b) <a name="part2"></a> Use either (Hutchins et al 2011) cyber kill chain or MITRE ATT&CK framework for analyzing the incident you used in a. You can pick any incident you want, but try to pick a source that gives you enough technical and business detail to do some analysis. (If you're in a hurry, cyber kill chain is much simpler. If you're technically skillful, you might find ATT&CK be very interesting)* 
+
+#### Cyber kill chain
+
+| Phases| | 
+| :---  |    :----   | 
+| Reconnaissance| Saudi Aramco | 
+| Weaponization   | Shamoon (W32.DistTrack) - Logic bomb. The virus consisted of three components, the Dropper, the Wiper, and the Reporter. | 
+| Delivery| Attackers send a spear-phishing email to employees at the target organization. The email contains a Microsoft Office document as an attachment. | 
+| Exploitation   | Opening the attachment from the email invokes PowerShell and enables command-line access to the compromised machine.  | 
+| Installation| The attackers use their access to deploy additional tools and malware to other endpoints or escalate privileges in the network. | 
+| Command and Control   | Attackers study the network by connecting to additional systems and locating critical servers. The attackers deploy the Shamoon malware.   | 
+| Actions on Objective| A coordinated Shamoon outbreak begins and computer hard drives across the organization are permanently wiped. | 
+
+#### MITRE ATT&CK - Techniques Used
+
+| Name |       Use | 
+| :---  |    :----    |
+| Abuse Elevation Control Mechanism: Bypass User Account Control  | Shamoon attempts to disable UAC remote restrictions by modifying the Registry |  
+|    Access Token Manipulation: Token Impersonation/Theft     |    Shamoon can impersonate tokens using LogonUser, ImpersonateLoggedOnUser, and ImpersonateNamedPipeClient.   |  
+|    Application Layer Protocol: Web Protocols     |     Shamoon has used HTTP for C2.  |  
+|     Create or Modify System Process: Windows Service    |     Shamoon creates a new service named "ntssrv" to execute the payload. Newer versions create the "MaintenaceSrv" and "hdv_725x" services.  |  
+|  	Data Destruction |     Shamoon attempts to overwrite operating system files and disk structures with image files. In a later variant, randomly generated data was used for data overwrites.  |  
+|   	Data Encrypted for Impact|     Shamoon has an operational mode for encrypting data instead of overwriting it.  |  
+|     Deobfuscate/Decode Files or Information    |    Shamoon decrypts ciphertext using an XOR cipher and a base64-encoded string.   |  
+|     	Disk Wipe: Disk Structure Wipe    |     Shamoon has been seen overwriting features of disk structure such as the MBR.  |  
+|       Indicator Removal on Host: Timestomp  |      Shamoon can change the modified time for files to evade forensic detection. |  
+|       	Ingress Tool Transfer  |     Shamoon can download an executable to run on the victim.  |  
+|         Lateral Tool Transfer|     Shamoon attempts to copy itself to remote machines on the network.  |  
+|       Masquerading: Masquerade Task or Service  |  Shamoon creates a new service named "ntssrv" that attempts to appear legitimate; the service's display name is "Microsoft Network Realtime Inspection Service" and its description is "Helps guard against time change attempts targeting known and newly discovered vulnerabilities in network time protocols." Newer versions create the "MaintenaceSrv" service, which misspells the word "maintenance."     |  
+|     Modify Registry    |    Once Shamoon has access to a network share, it enables the RemoteRegistry service on the target system. It will then connect to the system with RegConnectRegistryW and modify the Registry to disable UAC remote restrictions by setting SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\LocalAccountTokenFilterPolicy to 1   |  
+|     Obfuscated Files or Information    |     Shamoon contains base64-encoded strings.  |  
+|     Query Registry    |   Shamoon queries several Registry keys to identify hard disk partitions to overwrite.   |  
+|    Remote Services: SMB/Windows Admin Shares     |     Shamoon accesses network share(s), enables share access to the target device, copies an executable payload to the target system, and uses a Scheduled Task/Job to execute the malware.  |  
+| Remote System Discovery|   Shamoon scans the C-class subnet of the IPs on the victim's interfaces.     |
+| Scheduled Task/Job: Scheduled Task|   Shamoon copies an executable payload to the target system by using Windows Admin Shares and then scheduling an unnamed task to execute the malware.     |
+|  System Information Discovery     |    Shamoon obtains the victim's operating system version and keyboard layout and sends the information to the C2 server.    |
+|  	System Network Configuration Discovery     |     Shamoon obtains the target's IP address and local network segment.   |
+|   System Services: Service Execution    |    Shamoon creates a new service named "ntssrv" to execute the payload. Shamoon can also spread via PsExec.    |
+|   System Shutdown/Reboot    |   Shamoon will reboot the infected system once the wiping functionality has been completed.     |
+|  System Time Discovery     |    Shamoon obtains the system time and will only activate if it is greater than a preset date.    |
+| Valid Accounts: Domain Accounts   | If Shamoon cannot access shares using current privileges, it attempts access using hard coded, domain-specific credentials gathered earlier in the intrusion.    |
+
+*c) <a name="part3"></a> Use attack tree to analyze the security of some imaginary example target.*
+
+I took as an example target a case where a competitor wants to steal some production secrets.
+
+![Attack tree](/pictures/attackTree.jpeg)
+
+*d) <a name="part4"></a> MITTRE ATT&CK is about tactics, techniques and procedures. Give example of each from the framework.*
+
+**Tactic:** A tactic is a high-level description of part of the attack lifecycle with limited details on how the adversary explicitly carries out an activity. MITRE ATT&CK lists different enterprise tactics attackers may use across their attack lifecycle, like "Initial Access", "Persistence", "Command and Control", and "Exfiltration". For example, the "Command and Control" tactic when the adversary is trying to communicate with compromised systems to control them.
+
+**Technique:** A technique is the middle ground between high-level considerations of tactics and specific details of procedures. Within each tactic is a list of techniques that adversaries may use to accomplish the goal of the tactic. For example, some MITRE ATT&CK techniques can be used for command and control, including an "Application Layer Protocol", "Communication Through Removable Media", or "Data Encoding".
+
+**Procedure:** A procedure is the specific details of how an adversary carries out a technique to achieve a tactic. For example, the "Linux Rabbit" (Linux Rabbit sends the payload from the C2 server as an encoded URL parameter) procedure used in the "Data Encoding" technique for the "Command and Control" tactic.
+
+*e) <a name="part5"></a> Voluntary bonus: What do you consider the fundamentals of security? What are the theoretical foundations you would teach on the first day?*
+
+Based on the first lecture, I understood and consider now that availability, integrity, and confidentiality are fundamental principles of security.
+
+It is quite hard to answer the second question since it depends on the background of the student. If there is no technical background, I think it should be started with basic knowledge of IT infrastructure, helpdesk, development, I would ask to check the CS50 course. If a student has a technical background, I would start with key concepts and terminology, and key threats in Cybersecurity.
+
+[Go up.](#base)
