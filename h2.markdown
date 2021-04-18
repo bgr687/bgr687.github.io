@@ -3,3 +3,184 @@ layout: page
 title: null
 permalink: /h2/
 ---
+#### Homework 2 (April 19, 2021): Blockchain and cryptocurrency <a name="base">
+
+#### Table of Contents
+
+- [Part A](#part1)
+- [Part B](#part2)
+- [Part C](#part3)
+- [Part D](#part4)
+- [Part F](#part5)
+- [Part G](#part6)
+
+*a) <a name="part1"></a>Read Nakamoto's 2008 Bitcoin paper. Explain how BitCoin uses. (About one sentence per concept)*
+- *hashes*
+- *signatures*
+- *blockchain*
+- *proof of work*
+- *consensus*
+- *incentive*
+
+Bitcoin is the most popular cryptocurrency, and at the same time, it is one of the first cryptocurrencies for which a certain release limit was originally set. Its most important principle is complete decentralization, it does not have a central administrator, it does not obey financial regulators and banks.
+
+**Hashes.** In the bitcoin protocol, hash functions are part of the block hashing algorithm which is used to write new transactions into the blockchain through the mining process.
+
+**Signatures.** Digital signatures are used in Bitcoin to provide proof that you own the private key without having to reveal it, so proves that you are authorized to spend the associated funds, your private key is used to create the signature and your public key is used to verify the signature, this allows anybody to verify your signature as long as they have your public key.
+
+**Blockchain.** Bitcoin uses blockchain technology. A blockchain is a decentralized ledger of all transactions across a peer-to-peer network. Using this technology, participants can confirm transactions without a need for a central clearing authority. Potential applications can include fund transfers, settling trades, voting, and many other issues.
+
+**Proof of work.** It is used to confirm transactions and create new blocks. With PoW, miners compete with each other to complete transactions on the network and for rewards. It is needed to make the online currency work without a company or government running the show.  
+
+**Consensus.** The consensus makes sure that every new block that is added to the Blockchain is the one and only version of the truth that is agreed upon by all the nodes in the Blockchain.
+
+**Incentive.** The Bitcoin reward that miners receive is an incentive that motivates people to assist in the primary purpose of mining, to legitimize and monitor Bitcoin transactions, ensuring their validity.
+
+*b) <a name="part2"></a>Watch Felten et al 2015: Bitcoin and Cryptocurrency Technologies: Week 1 (about 1 h, requires free registration). Summarize each video with a couple of bullet points (3-5 bullets).*
+
+#### Cryptographic Hash Functions
+
+- A cryptographic hash function is a mathematical function and it has three attributes (It can take any string as input, it produces a fixed-size output and it has to be efficiently computable).
+
+Security properties:
+- Collision-free. If we know that x and y have the same hash, then it's safe to assume that x and y are the same. Because if someone knew an x and y that were different, that had the same hash, that would be a collision. 
+- Hiding. No feasible way to figure out what the input x was.
+- Puzzle-friendly. For every output Y, if we choose a random variable k from a high min-entropy distribution, it is infeasible to find a random number x, such that H(k\|x) = Y.
+
+#### Hash Pointers and Data Structures
+- Hash pointer is a pointer to where some info is stored and a hash of the info. If we have a hash pointer, we can ask to get the info back and verify that it has not changed.
+- A linked list built with hash pointers is a data structure that can be called a blockchain.
+- It is impossible to tamper a data.
+- Merkle trees serve to encode blockchain data more efficiently and securely. The tree holds many items but just needs to remember the root hash. 
+
+#### Digital Signatures
+
+- A digital signature is supposed to be just like a signature on paper only in digital form. 
+- Only you can sign, but anyone can verify.
+- A signature is tied to a particular document.
+- Three operations generate keys, sign, and verify. 
+- Hash functions are collision-free, it's safe to use the hash of the message as the input to the digital signature scheme rather than the message.
+- Bitcoin uses the ECDSA standard.
+
+#### Public Keys as Identities
+
+- A public key is like an identity. It's an actor who can do stuff in the system. 
+- If you know the secret key that corresponds to the public key, then you can sign messages with that secret key. 
+- Decentralized identity management. You don't need to inform someone that you're going to be using a particular name. If you want a new identity, just make one.
+
+#### A Simple Cryptocurrency
+
+- GoofyCoin is about the simplest cryptocurrency we can imagine.
+- Whoever owns a coin can pass it on to someone else.
+- Security problem. A double-spending attack happens when someone is spending the same coin twice.
+- ScroogeCoin, same as the previous one, but fixes the issue with double-spending.
+- Problem - centralization.  
+- Solution - make in a decentralized way. Figure out how people can agree which transactions are valid and which transactions have occurred.
+
+*c) <a name="part3"></a> Find a block and a transaction in BitCoin public ledger and explain parts of it. (Feel free to leave lots of things out, we don't need to fully understand most if it yet).*
+
+#### Block
+Blocks are files where data of the Bitcoin network are permanently recorded. A block records some or all of the most recent Bitcoin transactions that have not yet entered any prior blocks. Thus, a block is like a page of a ledger or record book. Each time a block is ‘completed’, it gives way to the next block in the blockchain. A block is thus a permanent store of records that, once written, cannot be altered or removed.
+
+<a href="https://www.blockchain.com/btc/block/0000000000000000000409dc1b5d02923d8642df55060ddeeb29ba8eab2f74f6" target="_blank">Link to the described block.</a>
+
+![Screenshot of the block](/pictures/block.jpg)
+
+| Term      | Description |
+| ----------- | ----------- |
+| Hash      | Unique identifier used to identify a particular block       |
+| Height   | Number of blocks connected on the blockchain        |
+| Miner   | Who confirmed the transactions in the block        |
+| Number of Transactions   | Number of transactions included in this block        |
+| Difficulty   | Mathematical value of how hard it is to find a valid hash for this block        |
+| Merkle root   | The root node of a merkle tree, a descendant of all the hashed pairs in the tree        |
+| Weight   | A measurement to compare the size of different transactions to each other in proportion to the block size limit        |
+| Size   | Total size of the block        |
+| Nonce   | Random value that can be adjusted to satisfy the proof of work        |
+| Transaction Volume   | Estimated total amount transacted in this block        |
+| Block Reward   | Static reward for the miner who calculated the hash for this block        |
+| Fee Reward   | Amount of transaction fees rewarded to the miner for calculating the hash for this block        |
+
+
+#### Transaction
+A transaction is a transfer of value between Bitcoin wallets that gets included in the blockchain.
+
+<a href="https://www.blockchain.com/btc/tx/4f9c5faa8cbafe1b47bfef9afa281827a4823bf47e064a24fce7dbc2c3a9a302" target="_blank">Link to the described transaction.</a>
+
+![Screenshot of the transaction](/pictures/transaction.jpg)
+![](/pictures/transaction2.jpg)
+
+| Term      | Description |
+| ----------- | ----------- |
+| Summary      | An overview of the transaction inputs (where BTC is spent), outputs (where BTC is received), the amounts, and whether or not it's confirmed |
+| Hash      | Unique identifier used to identify a particular transaction   |
+| Received Time      | Time this transaction was broadcast to the network, YYYY-MM-DD   |
+| Size      | Total size of this transaction   |
+| Weight      | A measurement to compare the size of different transactions to each other in proportion to the block size limit   |
+| Included in Block      | Block this transaction was mined and confirmed in   |
+| Confirmations      | Successful act of hashing a transaction and adding it to the blockchain   |
+| Fees      | Total fees paid to process this transaction   |
+| Inputs      | The addresses and amounts specifying the BTC spent   |
+| Outputs      | The addresses and amounts specifying BTC received  |
+
+*d) <a name="part4"></a> Create your own blockchain. Once you've created it, show step by step how you verify the whole blockchain, starting from the last block. Once you've verified your whole chain, make a modification in a block in the middle, and show how your verification catches the change.*
+
+| Block number      |  Information  |
+| ----------- | ----------- |
+| 0      |  espresso |
+| 1      |  3c4ef966f728d7c0542941c369fbcdd089f8d7f7837b6d42dc2cbd6adaf68158 doppio |
+| 2      |  105e414f6f2e077bd8728ae4357fc5de5300960cbbf3033c19f41ad174550e47 americano  |
+| 3      |  ba78e6bfb338638f2c38262c1ff8fa347608dcf3c651d1ecdbb432ff0b92ef79 cappuccino |
+| 4      |  a20e6ce853c68b514d783eab9f0693e6d54f4d3597dc2def65d1313dcd41ab70 flat white |
+| 5      |  91a08420b564377fa1f582289f2cdae8a2e0699592c7c2c0df01fb8aa5797a9c macchiato |
+
+I take hash sum of fourth block (91a08420b564377fa1f582289f2cdae8a2e0699592c7c2c0df01fb8aa5797a9c) from fifth block and compare the result of encoding information (a20e6ce853c68b514d783eab9f0693e6d54f4d3597dc2def65d1313dcd41ab70 flat white) from fourth block. If data are the same, then it is verified and I can go one level up to do the same for the third and fourth blocks.
+
+In case if data would be modified in a middle of a blockchain. By doing the above steps it would show that the compared data are not some and information in a block was modified. For example: 
+
+| 3      |  105e414f6f2e077bd8728ae4357fc5de5300960cbbf3033c19f41ad174550e47 cappuccino |
+| 4      |  a20e6ce853c68b514d783eab9f0693e6d54f4d3597dc2def65d1313dcd41ab70 flat white |
+
+Encoding of "105e414f6f2e077bd8728ae4357fc5de5300960cbbf3033c19f41ad174550e47 cappuccino" should give us the following hash "a20e6ce853c68b514d783eab9f0693e6d54f4d3597dc2def65d1313dcd41ab70", 
+but it gives us "60de161e73de5a6baabab01eaf53ab6357ae9fbcf72d9d3613bd732696bfd729", so comparison between "a20e6ce853c68b514d783eab9f0693e6d54f4d3597dc2def65d1313dcd41ab70" and "60de161e73de5a6baabab01eaf53ab6357ae9fbcf72d9d3613bd732696bfd729" fails and it means that data was changed.
+
+*f) <a name="part5"></a> Voluntary. They say hashes are one-way (hiding). So, 6b88c087247aa2f07ee1c5956b8e1a9f4c7f892a70e324f1bb3d161e05ca107b is an sha256 hash of a single lower case word. I wonder what it is...*
+
+The answer is *bitcoin*.
+
+*g) <a name="part6"></a>Voluntary: Watch and summarize Week 2 of Felten et al 2015 video lectures. 3-5 bullets per video.*
+
+#### Centralization vs. Decentralization
+- Almost no system is purely decentralized or purely centralized.
+- Bitcoin is decentralized.
+- P2P network. Open to anyone, low barrier to entry.
+- Mining. Open to anyone, but an inevitable concentration of power is often seen as undesirable.
+- The core developers are trusted by the community.
+
+#### Distributed Consensus
+- Bitcoin's key challenge is distributed consensus.
+- The main motivation is reliability in distributed systems.
+- Protocol terminates and all correct nodes decide on the same value. This value must have been proposed by some correct node. 
+- Consensus is hard, because nodes may crash and be malicious. The network is imperfect.
+
+#### Consensus without Identity: the Block Chain
+- It would make things a lot easier if nodes in Bitcoin would have ids. 
+- Bitcoin doesn't give you strong anonymity guarantees out of the box
+- Every block contains the hash of the block it extends
+- Consensus algorithm. New transactions are broadcast to all nodes. Each node collects new transactions into a block. In each round, a random node gets to broadcast its block. Other nodes accept the block only if all transactions in it are valid. Nodes express their acceptance of the block by including its hash in the next block they create.
+
+#### Incentives and Proof of Work
+- Block reward. The node that creates each block gets to include a special transaction in that block. And that special transaction is a coin creation transaction.
+- The total amount of bitcoins is 21 million.
+- Transaction fees. The creator of any transaction, not the creator of a block, but the creator of a transaction when someone A is paying to someone B. What she can do, is she can choose to make the output value of that coin less than the input value. It is voluntary.
+- Proof of Work. Selecting nodes in proportion to their computing power, another way to understand this is that we're allowing nodes to compete with each other by using their computing power.
+- Hash puzzles. In order to create a block, the node that proposes that block is required to find a number, a nonce.
+
+#### Putting It All Together
+- Mining economics. The mining reward that the miner gets is in terms of the block reward and transaction fees. 
+- Recap. 
+- Bitcoin has three types of consensus: value, state, and rules.
+- Bitcoin in bootstraped.
+- "51% attacker" can suppress some transactions from the blockchain and destroy confidence in Bitcoin.
+
+[Go up.](#base)

@@ -3,7 +3,7 @@ layout: home
 ---
 #### *List of homeworks:*
 - [Homework 1 (April 9, 2021):](h1.markdown) Overview, concepts and fundamentals
-- [Homework 2:](h2.markdown) Niko's Slides
+- [Homework 2 (April 19, 2021):](h2.markdown) Blockchain and cryptocurrency
 - [Homework 3:](h3.markdown) Offensive Views
 - [Homework 4:](h4.markdown) CIA Triad and Encryption
 - [Homework 5:](h5.markdown) Applications - Pseudonymity
