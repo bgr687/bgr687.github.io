@@ -3,3 +3,183 @@ layout: page
 title: null
 permalink: /h3/
 ---
+
+#### Homework 3 (April 26, 2021): Public Key Encryption and PGP <a name="base">
+
+#### Table of Contents
+
+- [Part A](#part1)
+- [Part B](#part2)
+- [Part C](#part3)
+- [Part D](#part4)
+- [Part E](#part5)
+
+*a) <a name="part1"></a>Read and summarize (with 1-5 bullet points for each heading)*
+- *Schneier 2015: Applied Cryptography Chapter 1: Foundations*
+
+All information below is based on the book "Applied Cryptography" by Bruce Schneier, besides several statements with links to other sources.
+#### Terminology
+- Sender and Receiver. Sender wants to send a message (securely and be sure that an eavesdropper cannot read the message) to a receiver.
+- Messages and Encryption.
+    - A message is *plaintext*.
+    - The process of disguising a message in such a way as to hide its substance is *encryption*. 
+    - An encrypted message is *ciphertext*.
+    - The process of turning ciphertext back into plaintext is *decryption*.
+    - The art and science of keeping messages secure is *cryptography*. 
+    - *Cryptanalysts* are practitioners of cryptanalysis, the art and science of breaking ciphertext.
+    - The branch of mathematics encompassing both cryptography and cryptanalysis is *cryptology* and its practitioners are cryptologists.
+- Authentication, Integrity, and Nonrepudiation. In addition to providing confidentiality, cryptography is often asked to do other jobs.
+    - *Authentication.* It should be possible for the receiver of a message to ascertain its origin; an intruder should not be able to masquerade as someone else. 
+    - *Integrity.* It should be possible for the receiver of a message to verify that it has not been modified in transit; an intruder should not be able to substitute a false message for a legitimate one.
+    - *Nonrepudiation.* A sender should not be able to falsely deny later that he sent a message. 
+- Algorithms and Keys
+    - A *cryptographic algorithm*, also called a *cipher*, is the mathematical function used for encryption and decryption. 
+    - If the security of an algorithm is based on keeping the way that algorithm works a secret, it is a *restricted* algorithm.
+    - Key. In cryptography, a key is a string of characters used within an encryption algorithm for altering data so that it appears random. Like a physical key, it locks (encrypts) data so that only someone with the right key can unlock (decrypt) it [[1](https://www.cloudflare.com/learning/ssl/what-is-a-cryptographic-key/)]. A key might be any one of a large number of values.
+    - The range of possible values of the key is called the *keyspace*.
+    - A *cryptosystem* is an algorithm, plus all possible plaintexts, ciphertexts, and keys. 
+- There are two general types of key-based algorithms: *symmetric* and *public-key*.   
+    - Symmetric Algorithms. Algorithms where the encryption key can be calculated from the decryption key and vice versa. In most symmetric algorithms, the encryption key and the decryption key are the same. Requires that the sender and receiver agree on a key before they can communicate securely.  
+    - Public-key algorithms. They are designed so that the key used for encryption is different from the key used for decryption. It is called "public-key" because the encryption key can be made public. A complete stranger can use the encryption key to encrypt a message, but only a specific person with the corresponding decryption key can decrypt the message.
+        - The encryption key is called the *public key*.
+        - The decryption key is often called the *private key*.
+- *Cryptanalysis*. It is the science of recovering the plaintext of a message without access to the key. It also may find weaknesses in a cryptosystem that eventually lead to the previous results.
+- An attempted cryptanalysis is called an *attack*. There are four general types of cryptanalytic attacks. 
+    - *Ciphertext-only* attack. The cryptanalyst has the ciphertext of several messages, all of which have been encrypted using the same encryption algorithm. The cryptanalyst’s job is to recover the plaintext of as many messages as possible, or better yet to deduce the key (or keys) used to encrypt the messages, in order to decrypt other messages encrypted with the same keys. 
+    - *Known-plaintext* attack. The cryptanalyst has access not only to the ciphertext of several messages, but also to the plaintext of those messages. His job is to deduce the key (or keys) used to encrypt the messages or an algorithm to decrypt any new messages encrypted with the same key (or keys).
+    - *Chosen-plaintext* attack. The cryptanalyst not only has access to the ciphertext and associated plaintext for several messages, but he also chooses the plaintext that gets encrypted. This is more powerful than a known-plaintext attack, because the cryptanalyst can choose specific plaintext blocks to encrypt, ones that might yield more information about the key. His job is to deduce the key (or keys) used to encrypt the messages or an algorithm to decrypt any new messages encrypted with the same key (or keys). 
+    - *Adaptive-chosen-plaintext* attack. This is a special case of a chosen-plaintext attack. Not only can the cryptanalyst choose the plaintext that is encrypted, but he can also modify his choice based on the results of previous encryption. In a chosen-plaintext attack, a cryptanalyst might just be able to choose one large block of plaintext to be encrypted; in an adaptivechosen-plaintext attack he can choose a smaller block of plaintext and then choose another based on the results of the first, and so forth. 
+- Security of Algorithms. Different algorithms offer different degrees of security; it depends on how hard they are to break. If the cost required to break an algorithm is greater than the value of the encrypted data, then you’re probably safe. If the time required to break an algorithm is longer than the time the encrypted data must remain secret, then you’re probably safe. If the amount of data encrypted with a single key is less than the amount of data necessary to break the algorithm, then you’re probably safe.
+    - An algorithm is *unconditionally secure* if, no matter how much ciphertext a cryptanalyst has, there is not enough information to recover the plaintext.
+    - A *brute-force* attack. Is attack where simply by trying every possible key one by one and checking whether the resulting plaintext is meaningful.
+    - An algorithm is considered *computationally secure* if it cannot be broken with available resources, either current or future.
+    - You can measure the complexity of an attack in different ways:
+        - *Data complexity*. The amount of data needed as input to the attack. 
+        - *Processing complexity*. The time needed to perform the attack. This is often called the work factor.
+        - *Storage requirements*. The amount of memory needed to do the attack. 
+
+#### Steganography
+- Steganography serves to hide secret messages in other messages, such that the secret’s very existence is concealed. Generally the sender writes an innocuous message and then conceals a secret message on the same piece of paper. Historical tricks include invisible inks, tiny pin punctures on
+selected characters, minute differences between handwritten characters, pencil marks on typewritten
+characters, grilles which cover most of the message except for a few characters, and so on.
+ 
+#### Substitution Ciphers and Transposition Ciphers
+Before computers, cryptography consisted of character-based algorithms. Different cryptographic algorithms either substituted characters for one another or transposed characters with one another. The better algorithms did both, many times each. 
+
+- *A substitution cipher* is one in which each character in the plaintext is substituted for another character in the ciphertext. In classical cryptography, there are four types of substitution ciphers: 
+    - A simple substitution cipher, or monoalphabetic cipher, is one in which each character of the plaintext is replaced with a corresponding character of ciphertext.
+    - A homophonic substitution cipher is like a simple substitution cryptosystem, except a single character of plaintext can map to one of several characters of ciphertext. For example, "A" could correspond to either 5, 13, 25, or 56, "B" could correspond to either 7, 19, 31, or 42, and so on. 
+    - A polygram substitution cipher is one in which blocks of characters are encrypted in groups. For example, "ABA" could correspond to "RTQ," "ABB" could correspond to "SLL," and so on. 
+    - A polyalphabetic substitution cipher is made up of multiple simple substitution ciphers. For example, there might be five different simple substitution ciphers used; the particular one used changes with the position of each character of the plaintext.
+- The famous *Caesar Cipher*, in which each plaintext character is replaced by the character three to the right modulo 26 ("A" is replaced by "D," "B" is replaced by "E,"..., "W" is replaced by "Z," "X" is replaced by "A," "Y" is replaced by "B," and "Z" is replaced by "C") is a simple substitution cipher. 
+- In a *transposition cipher* the plaintext remains the same, but the order of characters is shuffled around. In a *simple columnar transposition cipher*, the plaintext is written horizontally onto a piece of graph paper of fixed width and the ciphertext is read off vertically (see Figure 1.4). Decryption is a matter of writing the ciphertext vertically onto a piece of graph paper of identical width and then reading the plaintext off horizontally. 
+- *Rotor Machines*. A rotor machine has a keyboard and a series of rotors, and implements a version of the Vigenère cipher. Each rotor is an arbitrary permutation of the alphabet, has 26 positions, and performs a simple substitution. For example, a rotor might be wired to substitute "F" for "A," "U" for "B," "L" for "C," and so on.
+
+#### Simple XOR
+- XOR is exclusive-or operation. The simple XOR cipher is a variation of the Vigenère cipher. It differs from the original version because it operates on bytes, which are stored in computer memory, instead of letters [[2](http://www.crypto-it.net/eng/simple/simple-xor.html)]. The key is the same size as the message and the key is kept secret and generated truly randomly [[3](https://qvault.io/cryptography/why-is-exclusive-or-xor-important-in-cryptography/)].
+- One-Time Pads. The sender uses each key letter on the pad to encrypt exactly one plaintext character. Encryption is the addition modulo 26 of the plaintext character and the one-time pad key character. The receiver has an identical pad and uses each key on the pad, in turn, to decrypt each letter of the ciphertext.
+    - The idea of a one-time pad can be easily extended to binary data. Instead of a one-time pad consisting of letters, use a one-time pad of bits. Instead of adding the plaintext to the one-time pad, use an XOR. To decrypt, XOR the ciphertext with the same one-time pad. Everything else remains the same and the security is just as perfect. 
+
+#### Computer Algorithms
+There are many cryptographic algorithms. These are three of the most common: 
+- DES (Data Encryption Standard) is the most popular computer encryption algorithm. It is a symmetric algorithm; the same key is used for encryption and decryption.
+— RSA (named for its creators—Rivest, Shamir, and Adleman) is the most popular public-key algorithm. It can be used for both encryption and digital signatures.
+— DSA (Digital Signature Algorithm, used as part of the Digital Signature Standard) is another public-key algorithm. It cannot be used for encryption, but only for digital signatures. 
+
+*b) <a name="part2"></a>Give two examples of public key cryptography (other than PGP). Explain how public keys are used here.*
+
+Public key cryptography involves a pair of keys known as a public key and a private key (a public key pair), which are associated with an entity that needs to authenticate its identity electronically or to sign or encrypt data [[4](https://www.ibm.com/docs/en/ztpf/1.1.0.15?topic=concepts-public-key-cryptography)]. 
+It works in following order:
+- A random private key is generated and, according to a certain algorithm, another public key is selected for it. Moreover, for any private key, there is only one version of the public key. Those. these keys (private and public) always work in pairs.
+- Further, the public key is sent via any open communication channels to the sender of the secret message.
+- The sender uses received public key to encrypt the message and send it to the recipient who has the corresponding private key.
+- The recipient decrypts the secret message using his private key from the pair with the public key that encrypted the message.
+With the public key, you can only encrypt a message, but it will not be possible to decrypt it with this key.
+
+Examples: 
+
+*First example[[5](https://medium.com/bitcoin-review/%D1%88%D0%B8%D1%84%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D1%81-%D0%BE%D1%82%D0%BA%D1%80%D1%8B%D1%82%D1%8B%D0%BC-%D0%BA%D0%BB%D1%8E%D1%87%D0%BE%D0%BC-%D0%BD%D0%B0%D0%B3%D0%BB%D1%8F%D0%B4%D0%BD%D0%B0%D1%8F-%D0%B8%D0%BB%D0%BB%D1%8E%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D1%8F-fbea974f5896)].* Imagine a padlock with two keyholes and two keys - the left key (1) through the left keyhole (1) can release the fixation from the left half of the lock arc, freeing it and opening the entire lock. The right key (2) through the right keyhole (2) can fix the right half of the arc in the lock, thereby closing the lock. But, after closing, this key (2) can no longer release the right side of the arc from fixation and thereby open the lock.
+
+![Padlock with two keyholes and two keys](/pictures/padlock.png)
+
+Initially, the lock with the fixed left half of the arc (1) and the unlocked right (2), as well as with the key 2 (open) is delivered to the person who is to send a secret message. Having received a lock and an open key (2), the sender hangs it on the chest with a secret message and locks it with the received key 2. Now the chest is closed and even the sender cannot open it, since his key (2) can only fix the right side of the arc in the lock, but cannot release it. A locked chest with a secret message is sent to the recipient, who has a key (1) that unlocks the right half of the arc and thus unlocks the lock. But, other persons, even if they have a copy of the public key (2), will not be able to open the lock. The recipient opens the lock with the key (1) and the secret message is read!
+
+*Second example*. Alice creates a private and public key pair, then she sends the public key to Bob. Bob generates a large random number and encrypts it with Alice's public key, and sends the result of encryption to Alice. Further, she can decrypt it and find Bob's large random number. Everyone can know Alice's public key, but only she can decrypt it since only she has a private key.
+
+*c) <a name="part3"></a>Encrypt and sign a message. Then decrypt and verify it. Use PGP to encrypt and sign messages.*
+
+For accomplishing this task I have used the Windows version of Gpg4win with program suite Kleopatra as it was not specified if we have to do the task in a shell or through GUI.
+
+Here is my steps:
+
+- First I create my Key Pair.
+![1](/pictures/PGP/1.png)
+![2](/pictures/PGP/2.png)
+![3](/pictures/PGP/3.png)
+![4](/pictures/PGP/4.png)
+- Then I open the notepad and write some message, after it, I click on the *Sign/Encrypt Notepad* button.
+![5](/pictures/PGP/5.png)
+![6](/pictures/PGP/6.png)
+- Then I decrypt and verify that I can see my initial message.
+![8](/pictures/PGP/8.png)
+![9](/pictures/PGP/9.png)
+
+*d) <a name="part4"></a>Voluntary: Secrets with friends. Send a PGP message to your friend, and decrypt the reply.*
+
+For accomplishing this task I would use GUI Kleopatra from Gpg4win.
+
+In order to send PGP messages with a friend, both of us need to have public keys of each other. So my friend should send me his public key and I have to send him mine. Let's export mine for sending. First, we need to open the "Certificates" tab and choose the certificate, and then right-click on it.
+![10](/pictures/PGP/10.png)
+![11](/pictures/PGP/11.png)
+
+Or we can send it as a message by copying from details:
+![12](/pictures/PGP/12.png)
+
+Let's imagine we have received a public key from a friend. First, we click on the "Import" tab and then find the key to be uploaded.
+![13](/pictures/PGP/13.png)
+
+The friend's key was imported.
+![14](/pictures/PGP/14.png)
+
+Let's get back to the notepad and write a message to a friend.
+![15](/pictures/PGP/15.png)
+
+Click on the "Recipients" tab and choose our friend in the "encrypt for others" selection.
+![16](/pictures/PGP/16.png)
+
+Then click the "Sign/Encrypt Notepad" button.  
+![17](/pictures/PGP/17.png)
+
+We received PGP Message for a friend whose only he can decrypt.
+
+We have sent this message to a friend and then he decrypts it by proving his authenticity and clicking the "Decrypt/verify notepad" button.
+![18](/pictures/PGP/18.png)
+![19](/pictures/PGP/19.png)
+![20](/pictures/PGP/20.png)
+
+Then my friend replies to me by using my public key for decryption.
+![21](/pictures/PGP/21.png)
+![22](/pictures/PGP/22.png)
+
+I have received his message and decrypt it with my private key.
+![23](/pictures/PGP/23.png)
+![24](/pictures/PGP/24.png)
+![25](/pictures/PGP/25.png)
+![26](/pictures/PGP/26.png)
+
+*e) <a name="part5"></a>Voluntary: Find the correct PGP key for Richard Stallman, the head of Free Software Foundation. Then find an incorrect, suspect or fake PGP key for Stallman. Why do you think one key is genuine and another is suspect?*
+
+The first PGP key was taken from official Richard Stallman and two others from [https://keys.gnupg.net/](https://keys.gnupg.net/).
+
+- [Real PGP key](/attachments/correctPGP.txt) from Richard Stallman [[5](https://stallman.org/gpg.html)]
+- [Fake PGP key](/attachments/fakePGP.txt)[[6](http://keys.gnupg.net/pks/lookup?op=vindex&fingerprint=on&search=0x2E9CF0C36BAC3A66)]
+- [Real PGP key from a search](/attachments/correctSearchPGP.txt)[[7](http://keys.gnupg.net/pks/lookup?op=vindex&fingerprint=on&search=0x2C6464AF2A8E4C02)]
+
+In order to find if a key is genuine, I would first check the fingerprint, key id, name, and validity by using a trusted website. In this case the trusted website is [https://stallman.org](https://stallman.org), his official website. You can check see on next screenshots comparison between two keys.
+
+![30](/pictures/PGP/30.png)
+![31](/pictures/PGP/31.png)
+
+It can be seen that fingerprint, key id, name, and validity do not match.
+
+[Go up.](#base)
