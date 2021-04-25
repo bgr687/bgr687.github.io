@@ -175,7 +175,7 @@ The first PGP key was taken from official Richard Stallman and two others from [
 - [Fake PGP key](/attachments/fakePGP.txt)[[6](http://keys.gnupg.net/pks/lookup?op=vindex&fingerprint=on&search=0x2E9CF0C36BAC3A66)]
 - [Real PGP key from a search](/attachments/correctSearchPGP.txt)[[7](http://keys.gnupg.net/pks/lookup?op=vindex&fingerprint=on&search=0x2C6464AF2A8E4C02)]
 
-In order to find if a key is genuine, I would first check the fingerprint, key id, name, and validity by using a trusted website. In this case the trusted website is [https://stallman.org](https://stallman.org), his official website. You can check see on next screenshots comparison between two keys.
+In order to find if a key is genuine, I would first check the fingerprint, key id, name, and validity by using a trusted website. In this case the trusted website is [https://stallman.org](https://stallman.org), his official website. You can check on next screenshots comparison between two keys.
 
 ![30](/pictures/PGP/30.png)
 ![31](/pictures/PGP/31.png)

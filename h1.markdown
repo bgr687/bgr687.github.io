@@ -3,7 +3,7 @@ layout: page
 title: null
 permalink: /h1/
 ---
-#### Homework 1 (April 9, 2021): Overview, concepts and fundamentals <a name="base">
+#### Homework 1 (April 9, 2021): Overview, concepts and fundamentals<br/> *(Update: references and sources were added)* <a name="base">
 
 #### Table of Contents
 
@@ -14,6 +14,8 @@ permalink: /h1/
 - [Part E](#part5)
 
 *a) <a name="part1"></a>Pick a security incident and learn about it. Write briefly about it. Point out the concepts of threat actor, exploit, vulnerability, impact and risk. (You can find writeups about security incidents from Darknet Diaries and Krebs)*
+
+[Source](https://darknetdiaries.com/episode/30/)
 
 Saudi Aramco is the largest oil production company in the entire world. It supplies almost 1/10th of the oil in the world. The economy of Saudi Arabia is highly dependent on the production of oil. 
 
@@ -39,7 +41,8 @@ The production and exploration of oil were not affected as they were operated is
 | Command and Control   | Attackers study the network by connecting to additional systems and locating critical servers. The attackers deploy the Shamoon malware.   | 
 | Actions on Objective| A coordinated Shamoon outbreak begins and computer hard drives across the organization are permanently wiped. | 
 
-#### MITRE ATT&CK - Techniques Used
+#### MITRE ATT&CK - Techniques Used 
+[Source](https://attack.mitre.org/software/S0140/) 
 
 | Name |       Use | 
 | :---  |    :----    |
@@ -74,13 +77,13 @@ I took as an example target a case where a competitor wants to steal some produc
 
 ![Attack tree](/pictures/attackTree.jpeg)
 
-*d) <a name="part4"></a> MITTRE ATT&CK is about tactics, techniques and procedures. Give example of each from the framework.*
+*d) <a name="part4"></a> MITTRE ATT&CK is about tactics, techniques and procedures. Give example of each from the framework.* 
 
-**Tactic:** A tactic is a high-level description of part of the attack lifecycle with limited details on how the adversary explicitly carries out an activity. MITRE ATT&CK lists different enterprise tactics attackers may use across their attack lifecycle, like "Initial Access", "Persistence", "Command and Control", and "Exfiltration". For example, the "Command and Control" tactic when the adversary is trying to communicate with compromised systems to control them.
+**Tactic:** A tactic is a high-level description of part of the attack lifecycle with limited details on how the adversary explicitly carries out an activity[[1](https://www.cybereason.com/blog/what-is-the-mitre-attck-framework)]. MITRE ATT&CK lists different enterprise tactics attackers may use across their attack lifecycle, like "Initial Access", "Persistence", "Command and Control", and "Exfiltration". For example, the "Command and Control" tactic when the adversary is trying to communicate with compromised systems to control them[[2](https://attack.mitre.org/)].
 
-**Technique:** A technique is the middle ground between high-level considerations of tactics and specific details of procedures. Within each tactic is a list of techniques that adversaries may use to accomplish the goal of the tactic. For example, some MITRE ATT&CK techniques can be used for command and control, including an "Application Layer Protocol", "Communication Through Removable Media", or "Data Encoding".
+**Technique:** A technique is the middle ground between high-level considerations of tactics and specific details of procedures. Within each tactic is a list of techniques that adversaries may use to accomplish the goal of the tactic[[1](https://www.cybereason.com/blog/what-is-the-mitre-attck-framework)]. For example, some MITRE ATT&CK techniques can be used for command and control, including an "Application Layer Protocol", "Communication Through Removable Media", or "Data Encoding"[[2](https://attack.mitre.org/)].
 
-**Procedure:** A procedure is the specific details of how an adversary carries out a technique to achieve a tactic. For example, the "Linux Rabbit" (Linux Rabbit sends the payload from the C2 server as an encoded URL parameter) procedure used in the "Data Encoding" technique for the "Command and Control" tactic.
+**Procedure:** A procedure is the specific details of how an adversary carries out a technique to achieve a tactic[[1](https://www.cybereason.com/blog/what-is-the-mitre-attck-framework)]. For example, the "Linux Rabbit" (Linux Rabbit sends the payload from the C2 server as an encoded URL parameter) procedure used in the "Data Encoding" technique for the "Command and Control" tactic[[2](https://attack.mitre.org/)].
 
 *e) <a name="part5"></a> Voluntary bonus: What do you consider the fundamentals of security? What are the theoretical foundations you would teach on the first day?*
 

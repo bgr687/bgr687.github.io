@@ -3,7 +3,7 @@ layout: page
 title: null
 permalink: /h2/
 ---
-#### Homework 2 (April 19, 2021): Blockchain and cryptocurrency <a name="base">
+#### Homework 2 (April 19, 2021): Blockchain and cryptocurrency<br/> *(Update: references and sources were added)* <a name="base">
 
 #### Table of Contents
 
@@ -22,21 +22,23 @@ permalink: /h2/
 - *consensus*
 - *incentive*
 
-Bitcoin is the most popular cryptocurrency, and at the same time, it is one of the first cryptocurrencies for which a certain release limit was originally set. Its most important principle is complete decentralization, it does not have a central administrator, it does not obey financial regulators and banks.
+Bitcoin is the most popular cryptocurrency, and at the same time, it is one of the first cryptocurrencies for which a certain release limit was originally set. Its most important principle is complete decentralization, it does not have a central administrator, it does not obey financial regulators and banks[[1](https://www.investopedia.com/articles/investing/031416/bitcoin-vs-ethereum-driven-different-purposes.asp)].
 
-**Hashes.** In the bitcoin protocol, hash functions are part of the block hashing algorithm which is used to write new transactions into the blockchain through the mining process.
+**Hashes.** In the bitcoin protocol, hash functions are part of the block hashing algorithm which is used to write new transactions into the blockchain through the mining process[[2](https://www.coindesk.com/bitcoin-hash-functions-explained)].
 
-**Signatures.** Digital signatures are used in Bitcoin to provide proof that you own the private key without having to reveal it, so proves that you are authorized to spend the associated funds, your private key is used to create the signature and your public key is used to verify the signature, this allows anybody to verify your signature as long as they have your public key.
+**Signatures.** Digital signatures are used in Bitcoin to provide proof that you own the private key without having to reveal it, so proves that you are authorized to spend the associated funds, your private key is used to create the signature and your public key is used to verify the signature, this allows anybody to verify your signature as long as they have your public key[[3](https://bisontrails.co/digital-signatures/)].
 
-**Blockchain.** Bitcoin uses blockchain technology. A blockchain is a decentralized ledger of all transactions across a peer-to-peer network. Using this technology, participants can confirm transactions without a need for a central clearing authority. Potential applications can include fund transfers, settling trades, voting, and many other issues.
+**Blockchain.** Bitcoin uses blockchain technology. A blockchain is a decentralized ledger of all transactions across a peer-to-peer network. Using this technology, participants can confirm transactions without a need for a central clearing authority. Potential applications can include fund transfers, settling trades, voting, and many other issues[[4](https://www.investopedia.com/terms/b/blockchain.asp)].
 
-**Proof of work.** It is used to confirm transactions and create new blocks. With PoW, miners compete with each other to complete transactions on the network and for rewards. It is needed to make the online currency work without a company or government running the show.  
+**Proof of work.** It is used to confirm transactions and create new blocks. With PoW, miners compete with each other to complete transactions on the network and for rewards. It is needed to make the online currency work without a company or government running the show[[5](https://cointelegraph.com/explained/proof-of-work-explained)].  
 
-**Consensus.** The consensus makes sure that every new block that is added to the Blockchain is the one and only version of the truth that is agreed upon by all the nodes in the Blockchain.
+**Consensus.** The consensus makes sure that every new block that is added to the Blockchain is the one and only version of the truth that is agreed upon by all the nodes in the Blockchain[[6](https://www.geeksforgeeks.org/consensus-algorithms-in-blockchain/)].
 
-**Incentive.** The Bitcoin reward that miners receive is an incentive that motivates people to assist in the primary purpose of mining, to legitimize and monitor Bitcoin transactions, ensuring their validity.
+**Incentive.** The Bitcoin reward that miners receive is an incentive that motivates people to assist in the primary purpose of mining, to legitimize and monitor Bitcoin transactions, ensuring their validity[[7](https://www.oreilly.com/library/view/mastering-bitcoin/9781491902639/ch08.html)].
 
 *b) <a name="part2"></a>Watch Felten et al 2015: Bitcoin and Cryptocurrency Technologies: Week 1 (about 1 h, requires free registration). Summarize each video with a couple of bullet points (3-5 bullets).*
+
+[Source](https://www.coursera.org/learn/cryptocurrency)
 
 #### Cryptographic Hash Functions
 
@@ -78,6 +80,8 @@ Security properties:
 - Solution - make in a decentralized way. Figure out how people can agree which transactions are valid and which transactions have occurred.
 
 *c) <a name="part3"></a> Find a block and a transaction in BitCoin public ledger and explain parts of it. (Feel free to leave lots of things out, we don't need to fully understand most if it yet).*
+
+[Source](https://www.blockchain.com/)
 
 #### Block
 Blocks are files where data of the Bitcoin network are permanently recorded. A block records some or all of the most recent Bitcoin transactions that have not yet entered any prior blocks. Thus, a block is like a page of a ledger or record book. Each time a block is ‘completed’, it gives way to the next block in the blockchain. A block is thus a permanent store of records that, once written, cannot be altered or removed.
@@ -146,9 +150,13 @@ but it gives us "60de161e73de5a6baabab01eaf53ab6357ae9fbcf72d9d3613bd732696bfd72
 
 *f) <a name="part5"></a> Voluntary. They say hashes are one-way (hiding). So, 6b88c087247aa2f07ee1c5956b8e1a9f4c7f892a70e324f1bb3d161e05ca107b is an sha256 hash of a single lower case word. I wonder what it is...*
 
+[Source](https://letmegooglethat.com/?q=6b88c087247aa2f07ee1c5956b8e1a9f4c7f892a70e324f1bb3d161e05ca107b)
+
 The answer is *bitcoin*.
 
 *g) <a name="part6"></a>Voluntary: Watch and summarize Week 2 of Felten et al 2015 video lectures. 3-5 bullets per video.*
+
+[Source](https://www.coursera.org/learn/cryptocurrency)
 
 #### Centralization vs. Decentralization
 - Almost no system is purely decentralized or purely centralized.
