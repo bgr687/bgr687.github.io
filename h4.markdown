@@ -3,3 +3,164 @@ layout: page
 title: null
 permalink: /h4/
 ---
+
+#### Homework 4 (May 2, 2021): Cracking hashes <a name="base">
+
+#### Table of Contents
+
+- [Part Z](#part0)
+- [Part A](#part1)
+- [Part B](#part2)
+- [Part C](#part3)
+- [Part D](#part4)
+- [Part E](#part5)
+- [Part F](#part6)
+
+*z) <a name="part0"></a>Read and summarize (with some bullet points, feel free to concentrate on things you find interesting)*
+- *€ Santos et al 2017: Security Penetration Testing - The Art of Hacking Series LiveLessons: Lesson 6: Hacking User Credentials (8 videos, about 30 min)*
+
+[Source](https://learning.oreilly.com/videos/security-penetration-testing/9780134833989/9780134833989-sptt_00_06_00_00)
+
+#### Understanding Authentication and Authorization Mechanisms
+- Most systems store user credentials in some sort of database or a text file. 
+- Web applications often store the credentials in an SQL database, while in an active directory domain credentials are stored in a proprietary database.
+- The recent Petya ransomware attacks used some type of password attack in their process. They exploited the system initially using the EternalBlue exploit. And then it was used a tool called Mimikatz, which allows dumping the credentials out of memory. Then they utilize the credentials that they were able to steal to attack the other systems on the network using well-known protocols, like PsExec and WMI that are used in Windows, so it looked like normal traffic. 
+- There are two ways to defend against these types of attacks. Passwords have to be protected on the storage side and while they are being transmitted over the network.
+    - We have to use some type of encryption to ensure that people listening in on the network traffic cannot just intercept that information. 
+    - There are various ways to protect storage. Operating systems have their protective measures in there. You have to limit access to these storage mechanisms to only the people and the accounts that need access to that. Also have your intrusion detection, Endpoint protection, various auditing so you can look and see if anything looks fishy if people are accessing it in ways that they really should not be. 
+- It is highly recommended to have longer passwords and also enable two-factor authentication when you can.
+
+
+#### Understanding Authentication and Authorization Attacks
+- The vendors of software and hardware often use default passwords. Users of it do not always change their passwords as they should. Attackers can use that against them. There are websites where you can search for default passwords for the device.
+- Most people do use the same password for websites and devices and computers. If we can find one password, we can likely use that on other accounts that they use.
+- One of the easiest ways to capture credentials is just sniffing them right out of thin air. A perfect example of this is using a hotspot at a hotel or Starbucks, something like that. 
+- A man-in-the-middle attack, you own the traffic that is passing through you, so you can capture it and pull out the credentials from that traffic.
+- The more complex types of attacks include SSL certificate spoofing or SSH downgrade and key spoofing. 
+- Stealing credentials directly from a network device. If you can compromise a router or a switch or a wireless access point, you essentially own that traffic and can harvest credentials directly off of that device.
+- Many tools can be used for cracking passwords. Recommended tools Medusa, THC-Hydra, Brutus, Metasploit.
+
+#### Exploring Password Storage Mechanisms
+- Encryption has been part of signals intelligence for quite some time. Caesar cipher, Vigenère cipher, ROT13 et cetera. If there is a secret you want to be protected, encrypt it. 
+- One way hashing is not encryption, but it is used to protect passwords. Hashing algorithms are not reversible but were designed to be computed quickly. 
+- When the hash function applies a one-way hashing algorithm, the output of the function is a string of characters that is unique to that specific clear text that we input. 
+- This "hashed" string can be used in different ways to verify the integrity of the clear text that was provided. For instance, if a clear text email is sent through a hash function by the sender and the hash was provided to the recipient, they can use it to verify that the email was not changed in transit.
+
+#### Understanding Password Storage Vulnerability
+- It is easier to crack passwords nowadays. CPUs are getting faster and faster, so it's easier to crack passwords, now also GPUs are used to crack passwords as well. GPUs are oftentimes much faster than relying on the CPU alone.
+- On the Windows side, if two individuals have the same password, the hash is going to look the same in the database, whereas on Linux, if two individuals have the same password, generally because of salting, they will show up as two different password hashes. 
+- Some dictionaries have been built over time based on rainbow tables or password breaches.
+- There have been so many breaches where peoples' passwords have been made available online. These breaches have been public, so you can access some of the passwords that were posted online, and you can use those and your password cracking ability, so it is really easy to crack passwords if you have passwords from previous breaches. People generally tend to use the same passwords over and over again. 
+- Rainbow tables do not have all the combinations of a password, they use a reduction function to get a large number of passwords, upwards of 99% of the passwords per certain sets within smaller files, so you might have a file that is a few gigabytes large, and it contains 99% of passwords up to eight characters, so rainbow tables do make the password cracking ability much, much easier.
+
+#### Cracking Passwords with John the Ripper
+- John the Ripper is one of the long-time favorite password cracking programs. It comes with Kali Linux and is one of the standards for password cracking.
+- Type John at the command line of your kali box – help menu
+- It was used a standard Windows password file for cracking. You can see the username, lm hash, and after the colon nt hash.
+- Command – john password_hashes.txt (file with passwords)
+- lm hashes by default split the password into 2 seven-character sections. So, the word password since it is more than 7 characters, it'll split everything up until the last D and put it into one side of the password. And then the D will be on the second side of the password. 
+- john \-\-show password_hashes.txt - it will show you all the passwords that are cracked.
+- In the hidden directory called .john, there are 3 files. There is the john.log file, john.pot file, and the john.rac file, john.pot file is where it stores all the passwords that have been cracked. The john.rac file is where its monitor's exactly where you stopped a password crack. 
+- john \-\-show password.txt – will show only cracked LM hashes.
+- john \-\-show \-\-format=nt password.txt – will show only cracked NT hashes.
+- Dictionary cracking is as highly recommended.
+- /usr/share/john/password.lst own dictionary
+- john \-\-rules \-\-wordlist=/usr/share/john/password.lst \-\-format=nt password_hashes.txt 
+john \-\-rules \-\-wordlist=/usr/share/john/password.lst \-\-format=lm password_hashes.txt
+– to use own dictionary for cracking
+
+#### Cracking Passwords with hashcat
+- Hashcat uses GPU, open source, supports more than 200 hashing algorithms.
+- hashcat64.exe \-\-help – it will show help menu.
+- hashcat64.exe \-\-potfile-path cracked_passwords.pot -m 3000 password_hashes.txt -a 3 (3000 – LM, 1000 – NT, -a 3 brute force algorithm)
+- hashcat64.exe -m 1000 password_hashes.txt \-\-potfile-path cracked_passwords2.pot \-\-show \-\-username (show cracked passwords based on username) 
+
+#### Improving Password Security
+- Organization side 	
+    - Hashing algorithms are not enough.
+    - Use salt on your hash (increase the difficulty of cracking the passwords).
+    - Create strong passwords everywhere (support longer passwords).
+- Consumer side
+    - Use two-factor auth.
+    - Use certificate-based auth.
+    - Better randomness.
+
+*a) <a name="part1"></a> Install hashcat and test that it works.*
+
+![](/pictures/H4/1.jpg)
+
+
+*b) <a name="part2"></a> Crack this hash: 21232f297a57a5a743894a0e4a801fc3*
+
+The cracked password is ***admin***. Please check screenshots for details.
+Here is a command used for cracking. 
+- -m 0 -- MD5 hash type
+- -a 0 -- straight attack mode
+- hash.txt -- file with related hash
+- rockyou.txt -- rockyou wordlist is a password dictionary used to help to perform different types of password cracking attacks
+```
+hashcat.exe -m 0 -a 0 hash.txt rockyou.txt
+```
+![](/pictures/H4/2.jpg)
+![](/pictures/H4/3.jpg)
+
+*c) <a name="part3"></a> Crack this Windows related hash: f2477a144dff4f216ab81f2ac3e3207d*
+
+The cracked password is ***monkey***. Please check the below screenshot for details.
+
+Here is a command used for cracking. 
+- -m 1000 -- NTLM hash type
+- -a 3 -- brute-force attack mode
+- hash.txt -- file with related hash
+- rockyou.txt -- rockyou wordlist is a password dictionary used to help to perform different types of password cracking attacks
+```
+hashcat.exe -m 1000 -a 3 hash.txt rockyou.txt
+```
+![](/pictures/H4/4.jpg)
+
+
+*d) <a name="part4"></a> Crack this hash and comment on your hash rate $2y$18$axMtQ4N8j/NQVItQJed9uORfsUK667RAWfycwFMtDBD6zAo1Se2eu*
+
+The cracked password is ***12345***. Please check the below screenshot for details.
+
+Here is a command used for cracking. 
+- -m 3200 -- bcrypt hash type
+- -a 3 -- brute-force attack mode
+- hash.txt -- file with related hash
+- rockyou.txt -- rockyou wordlist is a password dictionary used to help to perform different types of password cracking attacks
+```
+hashcat.exe -m 3200 -a 3 hash.txt rockyou.txt
+```
+![](/pictures/H4/5.jpg)
+
+Regarding the hash rate. The cracking speed on my machine is 0 hashes per second, so it means it takes more than a second to proceed with one hash.
+
+
+*e) <a name="part5"></a>Voluntary bonus: make hashcat work with your display adapter (GPU).*
+
+First I find the device id for GPU:
+```
+hashcat.exe -I
+```
+![](/pictures/H4/7.jpg)
+When I found that GPU corresponds to 1, I run the following command:
+```
+hashcat.exe -m 0 -d 1 -a 0 hash.txt rockyou.txt
+```
+![](/pictures/H4/8.jpg)
+
+*f) <a name="part6"></a>Voluntary bonus: create some hashes of your own, then crack them with hashcat.*
+
+First I generate MD5 hashes for strings "denis" and "americanbully"(a breed of my dog), then add these hashes to my hash.txt file for further cracking. 
+```
+echo -n denis | md5sum
+echo -n americanbully | md5sum
+```
+![](/pictures/H4/9.jpg)
+Then I run the next command and check the results. You can see below the screenshot that the cracked results correspond to the initial strings.
+```
+hashcat.exe -m 0 -a 0 hash.txt rockyou.txt
+```
+![](/pictures/H4/11.jpg)
+
+[Go up.](#base)

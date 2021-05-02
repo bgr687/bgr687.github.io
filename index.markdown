@@ -7,6 +7,6 @@ layout: home
 - [Homework 2 (April 19, 2021):](h2.markdown) Blockchain and cryptocurrency\
 *(Update: references and sources were added)*
 - [Homework 3 (April 26, 2021):](h3.markdown) Public Key Encryption and PGP
-- [Homework 4:](h4.markdown) 
+- [Homework 4 (May 2, 2021):](h4.markdown) Cracking hashes
 - [Homework 5:](h5.markdown) 
 - [Homework 6:](h6.markdown) 
