@@ -1,0 +1,13 @@
+---
+layout: page
+title: null
+permalink: /h7/
+---
+
+#### Homework 7 (May 17, 2021): Presentation
+
+#### Fake documents market in the darknet
+
+While watching films and TV series, we often saw the purchase of passports, driver's licenses and various other documents to start a new life, and I was always curious how this happens in real life and what services are provided. I understood that there is a darknet and most likely everything can be bought there but at the same time, I did not think that it was so easily reachable. Even though I was curious about this topic, but my interest was not so strong to install and figure out how to use the TOR, as well I have not had a need for it, but after the last lecture related to darknet and getting the task to prepare a presentation related to covered materials from this course, I realized that such research could be a good topic. I am going to walk through international marketplaces but mainly focus on post-soviet marketplaces.
+
+- [Presentation](/attachments/presentationH7.pptx)

@@ -8,5 +8,4 @@ layout: home
 *(Update: references and sources were added)*
 - [Homework 3 (April 26, 2021):](h3.markdown) Public Key Encryption and PGP
 - [Homework 4 (May 2, 2021):](h4.markdown) Cracking hashes
-- [Homework 5:](h5.markdown) 
-- [Homework 6:](h6.markdown) 
+- [Homework 7 (May 17, 2021):](h7.markdown) Presentation 
